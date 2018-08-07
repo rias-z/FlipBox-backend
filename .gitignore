@@ -1,0 +1,7 @@
+venv
+*.idea
+.python-version
+__pycache__/
+.py[cod]
+.DS_Store
+.cache/

@@ -1,0 +1,35 @@
+- model: app.models.comment.Comment
+  fields:
+    comment_id: 1
+    name: test_comment_1_1
+    text: test_text_1_1
+    create_at: 2018-01-01 00:00:00
+    thread_id: 1
+    user_id: 1
+
+- model: app.models.comment.Comment
+  fields:
+    comment_id: 2
+    name: test_comment_1_2
+    text: test_text_1_2
+    create_at: 2018-01-01 00:00:10
+    thread_id: 1
+    user_id: 1
+
+- model: app.models.comment.Comment
+  fields:
+    comment_id: 3
+    name: test_comment_2_1
+    text: test_text_2_1
+    create_at: 2018-01-02 00:00:00
+    thread_id: 2
+    user_id: 1
+
+- model: app.models.comment.Comment
+  fields:
+    comment_id: 4
+    name: test_comment_2_2
+    text: test_text_2_2
+    create_at: 2018-01-02 00:00:10
+    thread_id: 2
+    user_id: 2

@@ -1,0 +1,14 @@
+- model: app.models.category.Category
+  fields:
+    category_id: 1
+    name: 雑談
+
+- model: app.models.category.Category
+  fields:
+    category_id: 2
+    name: 恋愛
+
+- model: app.models.category.Category
+  fields:
+    category_id: 3
+    name: 学業

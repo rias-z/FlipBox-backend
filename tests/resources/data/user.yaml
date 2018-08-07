@@ -1,0 +1,26 @@
+- model: app.models.user.User
+  fields:
+    user_id: 1
+    email: test1@test_gmail.com
+    password: test_pass1
+    nick_name: cosmos
+    profile:
+    twitter_name:
+
+- model: app.models.user.User
+  fields:
+    user_id: 2
+    email: test2@test_gmail.com
+    password: test_pass2
+    nick_name: sakura
+    profile: profile_sakura
+    twitter_name: tw_sakura
+
+- model: app.models.user.User
+  fields:
+    user_id: 3
+    email: test3@test_gmail.com
+    password: test_pass3
+    nick_name: matsu
+    profile: profile_matsu
+    twitter_name: tw_matsu

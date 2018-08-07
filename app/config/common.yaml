@@ -1,0 +1,13 @@
+mail:
+  address: student2ch@gmail.com
+  pass: dbs290fomura
+prov_expire_time: 3600
+login_expire_time: 1209600
+secret_key: secret_key_student2ch
+algorithm: HS256
+ID_ASC: 1
+ID_DESC: 2
+SPEED_ASC: 3
+SPEED_DESC: 4
+NUM_COMMENT_ASC: 5
+NUM_COMMENT_DESC: 6

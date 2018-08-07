@@ -1,0 +1,11 @@
+server:
+  host: 127.0.0.1
+  port: 5000
+  debug: False
+db:
+  user: root
+  passwd: ''
+  host: 127.0.0.1
+  port: 3306
+  db: student_board
+  charset: utf8

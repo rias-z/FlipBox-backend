@@ -1,0 +1,29 @@
+- model: app.models.sort.Sort
+  fields:
+    sort_id: 1
+    name: ID昇順
+
+- model: app.models.sort.Sort
+  fields:
+    sort_id: 2
+    name: ID降順
+
+- model: app.models.sort.Sort
+  fields:
+    sort_id: 3
+    name: 人気高い順
+
+- model: app.models.sort.Sort
+  fields:
+    sort_id: 4
+    name: 人気低い順
+
+- model: app.models.sort.Sort
+  fields:
+    sort_id: 5
+    name: コメント数多い順
+
+- model: app.models.sort.Sort
+  fields:
+    sort_id: 6
+    name: コメント数少ない順

@@ -1,0 +1,11 @@
+- model: app.models.university.University
+  fields:
+    university_id: 1
+    name: test1
+    domain: test1.ac.jp
+
+- model: app.models.university.University
+  fields:
+    university_id: 2
+    name: test2
+    domain: test2.ac.jp

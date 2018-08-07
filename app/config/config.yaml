@@ -1,0 +1,1 @@
+dburl: 'mysql+pymysql://{user}:{passwd}@{host}:{port}/{db}?charset={charset}'
