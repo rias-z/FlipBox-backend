@@ -3,16 +3,17 @@ from sqlalchemy import Column, Integer, String
 from app.models import Base, row_to_dict, session_scope
 
 
-class Sort(Base):
-    __tablename__ = 'sort'
+class Tag(Base):
+    __tablename__ = 'tag'
 
-    sort_id = Column(
+    tag_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
         autoincrement=True
     )
-    name = Column(String(length=256), nullable=False)
+    name = Column(String(length=64), nullable=False)
+    tag_cnt = Column(Integer, nullable=False)
 
     @classmethod
     def get_all(cls):
