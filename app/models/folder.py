@@ -1,14 +1,14 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, String
 
 from app.models import Base, row_to_dict, session_scope
-from app.models.flip import Flip
+from app.models.bookmark import Bookmark
 from app.models.user import User
 
 
-class Comment(Base):
-    __tablename__ = 'comment'
+class Folder(Base):
+    __tablename__ = 'folder'
 
-    comment_id = Column(
+    folder_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
@@ -20,14 +20,14 @@ class Comment(Base):
         nullable=False,
         index=True
     )
-    flip_id = Column(
-        String,
-        ForeignKey(Flip.flip_id),
+    bookmark_id = Column(
+        Integer,
+        ForeignKey(Bookmark.bookmark_id),
         nullable=False
     )
-    create_at = Column(DateTime, nullable=False)
-    content = Column(String(length=512), nullable=False)
-
+    order_id = Column(Integer)
+    title = Column(String(length=512), nullable=False)
+    
     @classmethod
     def all(cls):
         with session_scope() as session:

@@ -1,32 +1,31 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, String
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.flip import Flip
-from app.models.user import User
+from app.models.tag import Tag
 
 
-class Comment(Base):
-    __tablename__ = 'comment'
+class FlipTag(Base):
+    __tablename__ = 'flip_tag'
 
-    comment_id = Column(
+    flip_tag_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
         autoincrement=True
     )
-    user_id = Column(
-        Integer,
-        ForeignKey(User.user_id),
-        nullable=False,
-        index=True
-    )
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
-        nullable=False
+        nullable=False,
+        index=True
     )
-    create_at = Column(DateTime, nullable=False)
-    content = Column(String(length=512), nullable=False)
+    tag_id = Column(
+        Integer,
+        ForeignKey(Tag.tag_id),
+        nullable=False,
+        index=True
+    )
 
     @classmethod
     def all(cls):

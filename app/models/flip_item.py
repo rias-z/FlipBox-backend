@@ -1,32 +1,29 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, String
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.flip import Flip
-from app.models.user import User
+from app.models.item import Item
 
 
-class Comment(Base):
-    __tablename__ = 'comment'
+class FlipItem(Base):
+    __tablename__ = 'flip_item'
 
-    comment_id = Column(
+    flip_item_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
         autoincrement=True
-    )
-    user_id = Column(
-        Integer,
-        ForeignKey(User.user_id),
-        nullable=False,
-        index=True
     )
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
         nullable=False
     )
-    create_at = Column(DateTime, nullable=False)
-    content = Column(String(length=512), nullable=False)
+    item_id = Column(
+        Integer,
+        ForeignKey(Item.item_id),
+        nullable=False
+    )
 
     @classmethod
     def all(cls):

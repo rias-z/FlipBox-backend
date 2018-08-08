@@ -12,11 +12,11 @@ class User(Base):
         nullable=False,
         autoincrement=True
     )
-    email = Column(String(length=256), nullable=False, unique=True)
-    password = Column(String(length=256), nullable=False)
-    nick_name = Column(String(length=256), nullable=True, unique=True)
-    profile = Column(String(length=256), nullable=True)
-    twitter_name = Column(String(length=256), nullable=True)
+    email = Column(String(length=512), nullable=False, unique=True)
+    username = Column(String(length=64), nullable=True)
+    password = Column(String(length=64), nullable=False)
+    description = Column(String(length=512), nullable=True)
+    thumbnail = Column(String, nullable=False)
 
     @classmethod
     def get(cls, user_id):
@@ -24,15 +24,15 @@ class User(Base):
         Args:
             user_id:    ユーザID
         Returns:
-            nick_name:      ニックネーム
-            profile:        プロファイル
-            twitter_name:   ツイッターネーム
+            username:      ニックネーム
+            description:        プロファイル
+            thumbnail:   ツイッターネーム
         '''
         with session_scope() as session:
             rows = session.query(
-                cls.nick_name,
-                cls.profile,
-                cls.twitter_name
+                cls.username,
+                cls.description,
+                cls.thumbnail
             ).filter(
                 cls.user_id == user_id
             ).first()
@@ -48,15 +48,15 @@ class User(Base):
         Args:
             email:    学番メール
         Returns:
-            nick_name:      ニックネーム
-            profile:        プロファイル
-            twitter_name:   ツイッターネーム
+            username:      ニックネーム
+            description:        プロファイル
+            thumbnail:   ツイッターネーム
         '''
         with session_scope() as session:
             rows = session.query(
-                cls.nick_name,
-                cls.profile,
-                cls.twitter_name
+                cls.username,
+                cls.description,
+                cls.thumbnail
             ).filter(
                 cls.email == email
             ).first()
@@ -94,9 +94,9 @@ class User(Base):
             rows = session.query(
                 cls.user_id,
                 cls.email,
-                cls.nick_name,
-                cls.profile,
-                cls.twitter_name
+                cls.username,
+                cls.description,
+                cls.thumbnail
             ).filter(
                 cls.user_id == user_id
             ).first()
@@ -114,9 +114,9 @@ class User(Base):
             rows = session.query(
                 cls.user_id,
                 cls.email,
-                cls.nick_name,
-                cls.profile,
-                cls.twitter_name
+                cls.username,
+                cls.description,
+                cls.thumbnail
             ).all()
 
             result = [row._asdict() for row in rows]
@@ -145,9 +145,9 @@ class User(Base):
             rows = session.query(
                 cls.user_id,
                 cls.email,
-                cls.nick_name,
-                cls.profile,
-                cls.twitter_name
+                cls.username,
+                cls.description,
+                cls.thumbnail
             ).filter(
                 cls.email == email,
                 cls.password == password
@@ -181,7 +181,7 @@ class User(Base):
                 return False
 
     @classmethod
-    def is_exist_by_nick_name(cls, nick_name):
+    def is_exist_by_username(cls, username):
         '''同じニックネームのユーザが存在するかどうかをboolで返却
         Args:
             nike_name:  ニックネーム
@@ -192,7 +192,7 @@ class User(Base):
             count = session.query(
                 cls
             ).filter(
-                cls.nick_name == nick_name
+                cls.username == username
             ).count()
 
             if count > 0:
@@ -207,9 +207,9 @@ class User(Base):
             params:
                 * email:        学番メール
                 * password:     パスワード
-                * nick_name:    ニックネーム
-                profile:        プロファイル
-                twitter_name:   ツイッターネーム
+                * username:    ニックネーム
+                description:        プロファイル
+                thumbnail:   ツイッターネーム
 
         * 必須
         '''
@@ -259,9 +259,9 @@ class User(Base):
     @classmethod
     def _check_length(cls, params):
         # length_check
-        nick_name = params.get('nick_name')
-        if nick_name:
-            if len(nick_name) > 20:
+        username = params.get('username')
+        if username:
+            if len(username) > 20:
                 raise Exception('over length')
 
         email = params.get('email')
@@ -269,14 +269,14 @@ class User(Base):
             if len(email) > 50:
                 raise Exception('over length')
 
-        profile = params.get('profile')
-        if profile:
-            if len(profile) > 200:
+        description = params.get('description')
+        if description:
+            if len(description) > 200:
                 raise Exception('over length')
 
-        twitter_name = params.get('twitter_name')
-        if twitter_name:
-            if len(twitter_name) > 15:
+        thumbnail = params.get('thumbnail')
+        if thumbnail:
+            if len(thumbnail) > 15:
                 raise Exception('over length')
 
         return

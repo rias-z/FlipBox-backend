@@ -1,18 +1,17 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, DateTime, String
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.flip import Flip
 from app.models.user import User
 
 
-class Comment(Base):
-    __tablename__ = 'comment'
+class Bookmark(Base):
+    __tablename__ = 'bookmark'
 
-    comment_id = Column(
+    bookmark_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
-        autoincrement=True
     )
     user_id = Column(
         Integer,
@@ -25,8 +24,8 @@ class Comment(Base):
         ForeignKey(Flip.flip_id),
         nullable=False
     )
-    create_at = Column(DateTime, nullable=False)
-    content = Column(String(length=512), nullable=False)
+    order_id = Column(Integer)
+    create_at = Column(DateTime, nullable=False)  # 形式　%Y/%m/%d %H:%M
 
     @classmethod
     def all(cls):

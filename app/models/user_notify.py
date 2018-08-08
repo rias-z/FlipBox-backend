@@ -1,14 +1,14 @@
-from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
+from sqlalchemy import Column, Integer, ForeignKey
 
 from app.models import Base, row_to_dict, session_scope
-from app.models.flip import Flip
+from app.models.notify import Notify
 from app.models.user import User
 
 
-class Comment(Base):
-    __tablename__ = 'comment'
+class UserNotify(Base):
+    __tablename__ = 'user_notify'
 
-    comment_id = Column(
+    user_notify_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
@@ -17,16 +17,13 @@ class Comment(Base):
     user_id = Column(
         Integer,
         ForeignKey(User.user_id),
-        nullable=False,
-        index=True
-    )
-    flip_id = Column(
-        String,
-        ForeignKey(Flip.flip_id),
         nullable=False
     )
-    create_at = Column(DateTime, nullable=False)
-    content = Column(String(length=512), nullable=False)
+    notify_id = Column(
+        Integer,
+        ForeignKey(Notify.notify_id),
+        nullable=False
+    )
 
     @classmethod
     def all(cls):

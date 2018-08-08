@@ -2,31 +2,26 @@ from sqlalchemy import Column, Integer, ForeignKey, String, DateTime
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.flip import Flip
-from app.models.user import User
 
 
-class Comment(Base):
-    __tablename__ = 'comment'
+class Notify(Base):
+    __tablename__ = 'notify'
 
-    comment_id = Column(
+    notify_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
         autoincrement=True
     )
-    user_id = Column(
-        Integer,
-        ForeignKey(User.user_id),
-        nullable=False,
-        index=True
-    )
+    content = Column(String(length=512), nullable=False)
+    receive_user_id = Column(Integer, nullable=False, index=True)
+    send_user_id = Column(Integer, nullable=False)
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
         nullable=False
     )
     create_at = Column(DateTime, nullable=False)
-    content = Column(String(length=512), nullable=False)
 
     @classmethod
     def all(cls):
