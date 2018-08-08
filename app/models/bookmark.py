@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, DateTime, String
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.flip import Flip
@@ -20,7 +20,7 @@ class Bookmark(Base):
         index=True
     )
     flip_id = Column(
-        Integer,
+        String,
         ForeignKey(Flip.flip_id),
         nullable=False
     )

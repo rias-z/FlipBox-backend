@@ -2,13 +2,13 @@ from sqlalchemy import Column, Integer, ForeignKey, String
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.flip import Flip
-from app.models.item import Item
+from app.models.tag import Tag
 
 
-class FlipItem(Base):
-    __tablename__ = 'flip_item'
+class FlipTag(Base):
+    __tablename__ = 'flip_tag'
 
-    flip_item_id = Column(
+    flip_tag_id = Column(
         Integer,
         primary_key=True,
         nullable=False,
@@ -17,12 +17,14 @@ class FlipItem(Base):
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
-        nullable=False
+        nullable=False,
+        index=True
     )
-    item_id = Column(
+    tag_id = Column(
         Integer,
-        ForeignKey(Item.item_id),
-        nullable=False
+        ForeignKey(Tag.tag_id),
+        nullable=False,
+        index=True
     )
 
     @classmethod

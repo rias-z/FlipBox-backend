@@ -8,7 +8,7 @@ class Flip(Base):
     __tablename__ = 'flip'
 
     flip_id = Column(
-        Integer,
+        String,
         primary_key=True,
         nullable=False,
         index=True
