@@ -17,7 +17,8 @@ class UserNotify(Base):
     user_id = Column(
         Integer,
         ForeignKey(User.user_id),
-        nullable=False
+        nullable=False,
+        index=True
     )
     notify_id = Column(
         Integer,

@@ -22,7 +22,8 @@ class Bookmark(Base):
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
-        nullable=False
+        nullable=False,
+        index=True
     )
     order_id = Column(Integer)
     create_at = Column(DateTime, nullable=False)  # 形式　%Y/%m/%d %H:%M

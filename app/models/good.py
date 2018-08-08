@@ -23,7 +23,8 @@ class Good(Base):
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
-        nullable=False
+        nullable=False,
+        index=True
     )
 
     @classmethod

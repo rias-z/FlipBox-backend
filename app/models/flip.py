@@ -17,7 +17,8 @@ class Flip(Base):
     user_id = Column(
         Integer,
         ForeignKey(User.user_id),
-        nullable=False
+        nullable=False,
+        index=True
     )
     item_cnt = Column(Integer, nullable=False)
     bookmark_cnt = Column(Integer, nullable=False)

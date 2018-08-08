@@ -23,7 +23,8 @@ class Comment(Base):
     flip_id = Column(
         String,
         ForeignKey(Flip.flip_id),
-        nullable=False
+        nullable=False,
+        index=True,
     )
     create_at = Column(DateTime, nullable=False)
     content = Column(String(length=512), nullable=False)
