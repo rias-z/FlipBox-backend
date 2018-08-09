@@ -1,7 +1,5 @@
 from flask import Blueprint, jsonify, make_response, request
 
-from app.models.comment import Comment
-from app.models.thread import Thread
 from app.models.user import User
 from app.views.utils.check_webtoken import check_webtoken
 
@@ -33,13 +31,7 @@ def post_comment(token_data):
             'name': user.get('nick_name')
         })
 
-        # comment作成
-        Comment.post(params)
-
-        # comment追加後，thread_idに紐づく
-        thread = Thread.get(thread_id=params.get('thread_id'))
-
-        result = thread.get('comments')
+        result = []
 
         return make_response(jsonify(result), 201)
     except Exception as e:
