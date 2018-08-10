@@ -17,7 +17,7 @@ class Notify(Base):
     receive_user_id = Column(Integer, nullable=False, index=True)
     send_user_id = Column(Integer, nullable=False)
     flip_id = Column(
-        String,
+        String(length=64),
         ForeignKey(Flip.flip_id),
         nullable=False
     )

@@ -15,12 +15,12 @@ class FlipItem(Base):
         autoincrement=True
     )
     flip_id = Column(
-        String,
+        String(length=64),
         ForeignKey(Flip.flip_id),
         nullable=False
     )
     item_id = Column(
-        Integer,
+        String(length=64),
         ForeignKey(Item.item_id),
         nullable=False
     )

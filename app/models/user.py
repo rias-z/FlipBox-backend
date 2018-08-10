@@ -16,7 +16,7 @@ class User(Base):
     username = Column(String(length=64), nullable=True)
     password = Column(String(length=64), nullable=False)
     description = Column(String(length=512), nullable=True)
-    thumbnail = Column(String, nullable=False)
+    thumbnail = Column(String(length=64), nullable=False)
 
     @classmethod
     def get(cls, user_id):
