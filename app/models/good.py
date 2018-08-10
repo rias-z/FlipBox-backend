@@ -21,7 +21,7 @@ class Good(Base):
         index=True
     )
     flip_id = Column(
-        String,
+        String(length=64),
         ForeignKey(Flip.flip_id),
         nullable=False,
         index=True

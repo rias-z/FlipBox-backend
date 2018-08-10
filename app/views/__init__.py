@@ -1,6 +1,7 @@
 from . import (
     auth,
     comment,
+    bookmark,
     user,
 )
 
@@ -8,6 +9,7 @@ from . import (
 blueprints = [
     auth.app,
     comment.app,
+    bookmark.app,
     user.app,
 ]
 

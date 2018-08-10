@@ -20,13 +20,13 @@ class Bookmark(Base):
         index=True
     )
     flip_id = Column(
-        String,
+        String(length=64),
         ForeignKey(Flip.flip_id),
         nullable=False,
         index=True
     )
     order_id = Column(Integer)
-    create_at = Column(DateTime, nullable=False)  # 形式　%Y/%m/%d %H:%M
+    create_at = Column(DateTime, nullable=False)
 
     @classmethod
     def all(cls):
