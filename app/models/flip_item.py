@@ -20,7 +20,7 @@ class FlipItem(Base):
         nullable=False
     )
     item_id = Column(
-        Integer,
+        String(length=64),
         ForeignKey(Item.item_id),
         nullable=False
     )

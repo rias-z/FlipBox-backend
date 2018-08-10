@@ -1,16 +1,38 @@
 from . import (
     auth,
-    comment,
     bookmark,
+    comment,
+    flip,
+    flip_item,
+    flip_tag,
+    folder,
+    follow,
+    good,
+    item,
+    notify,
+    provisional_user,
+    tag,
     user,
+    user_notify,
 )
 
 
 blueprints = [
     auth.app,
-    comment.app,
     bookmark.app,
+    comment.app,
+    flip.app,
+    flip_item.app,
+    flip_tag.app,
+    folder.app,
+    follow.app,
+    good.app,
+    item.app,
+    notify.app,
+    provisional_user.app,
+    tag.app,
     user.app,
+    user_notify.app,
 ]
 
 
