@@ -12,7 +12,7 @@ class Item(Base):
         nullable=False,
         index=True
     )
-    url = Column(String(length=255), nullable=False, unique=True)
+    url = Column(String(length=2083), nullable=False)
     name = Column(String(length=64), nullable=True)
     description = Column(String(length=512), nullable=True)
 
