@@ -17,10 +17,48 @@ class Item(Base):
     description = Column(String(length=512), nullable=True)
 
     @classmethod
-    def get(cls):
+    def all(cls):
         with session_scope() as session:
             rows = session.query(cls).all()
 
-            result = [row_to_dict(row) for row in rows]
+            return [row_to_dict(row) for row in rows]
 
-            return result
+    @classmethod
+    def get(cls, item_id):
+        with session_scope() as session:
+            row = session.query(cls).filter(
+                cls.item_id == item_id
+            ).first()
+
+            if not row:
+                return None
+
+            return row_to_dict(row)
+
+    @classmethod
+    def post(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+            session.add(data)
+
+    @classmethod
+    def put(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+
+            # mergeして1回commit
+            session.merge(data)
+            session.commit()
+
+    @classmethod
+    def delete(cls, item_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.item_id == item_id
+            )
+            session.delete(rows)
+

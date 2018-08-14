@@ -34,3 +34,56 @@ class FlipTag(Base):
 
             return [row_to_dict(row) for row in rows]
 
+    @classmethod
+    def get(cls, flip_tag_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.flip_tag_id == flip_tag_id
+            ).first()
+
+            if not rows:
+                return None
+
+            return row_to_dict(rows)
+
+    @classmethod
+    def get_by_flip_id(cls, flip_id):
+        with session_scope() as session:
+            rows = session.query(Tag).join(cls).filter(
+                cls.flip_id == flip_id
+            )
+
+            if not rows:
+                return None
+
+            result = [row_to_dict(row) for row in rows]
+
+            return result
+
+    @classmethod
+    def post(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+            session.add(data)
+
+    @classmethod
+    def put(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+
+            # mergeして1回commit
+            session.merge(data)
+            session.commit()
+
+    @classmethod
+    def delete(cls, flip_tag_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.flip_tag_id == flip_tag_id
+            )
+            session.delete(rows)
+

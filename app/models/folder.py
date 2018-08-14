@@ -27,11 +27,50 @@ class Folder(Base):
     )
     order_id = Column(Integer)
     title = Column(String(length=512), nullable=False)
-    
+
     @classmethod
     def all(cls):
         with session_scope() as session:
             rows = session.query(cls).all()
 
             return [row_to_dict(row) for row in rows]
+
+    @classmethod
+    def get(cls, folder_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.folder_id == folder_id
+            ).first()
+
+            if not rows:
+                return None
+
+            return row_to_dict(rows)
+
+    @classmethod
+    def post(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+            session.add(data)
+
+    @classmethod
+    def put(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+
+            # mergeして1回commit
+            session.merge(data)
+            session.commit()
+
+    @classmethod
+    def delete(cls, folder_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.folder_id == folder_id
+            )
+            session.delete(rows)
 

@@ -43,3 +43,30 @@ class Flip(Base):
                 return None
 
             return row_to_dict(rows)
+
+    @classmethod
+    def post(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+            session.add(data)
+
+    @classmethod
+    def put(cls, params):
+        with session_scope() as session:
+            data = cls(
+                **params
+            )
+
+            # mergeして1回commit
+            session.merge(data)
+            session.commit()
+
+    @classmethod
+    def delete(cls, flip_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.flip_id == flip_id
+            )
+            session.delete(rows)
