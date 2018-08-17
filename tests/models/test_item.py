@@ -8,16 +8,19 @@ class ItemTest(AbstractTest):
     tables = ['item']
 
     def test_get(self):
+        '''Item取得
+        '''
         self.load_fixtures()
 
         item = Item()
 
-        actual = item.get()
-        expect = [
-            {'item_id': 1, 'name': '雑談'},
-            {'item_id': 2, 'name': '恋愛'},
-            {'item_id': 3, 'name': '学業'},
-        ]
+        actual = item.get(1534547970293028)
+        expect = {
+            'item_id': 1534547970293028,
+            'url': 'https://www.google.com/',
+            'name': 'テストアイテム1',
+            'description': 'テストのアイテム',
+        }
 
         self.assertEqual(expect, actual)
 

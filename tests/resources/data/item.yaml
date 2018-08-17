@@ -1,0 +1,14 @@
+- model: app.models.item.Item
+  fields:
+    item_id: 1534547970293028
+    url: https://www.google.com/
+    name: テストアイテム1
+    description: テストのアイテム
+
+- model: app.models.item.Item
+  fields:
+    item_id: 1534547970293028
+    url: https://www.google.com/
+    name: テストアイテム2
+    description: テストのアイテム!
+
