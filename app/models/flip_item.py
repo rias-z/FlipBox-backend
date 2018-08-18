@@ -65,6 +65,7 @@ class FlipItem(Base):
                 **params
             )
             session.add(data)
+            return row_to_dict(data)
 
     @classmethod
     def put(cls, params):
@@ -76,6 +77,7 @@ class FlipItem(Base):
             # mergeして1回commit
             session.merge(data)
             session.commit()
+            return row_to_dict(data)
 
     @classmethod
     def delete(cls, flip_item_id):

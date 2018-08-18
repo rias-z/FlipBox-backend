@@ -54,6 +54,7 @@ class Bookmark(Base):
                 **params
             )
             session.add(data)
+            return row_to_dict(data)
 
     @classmethod
     def put(cls, params):
@@ -65,6 +66,7 @@ class Bookmark(Base):
             # mergeして1回commit
             session.merge(data)
             session.commit()
+            return row_to_dict(data)
 
     @classmethod
     def delete(cls, bookmark_id):

@@ -42,6 +42,7 @@ class Item(Base):
                 **params
             )
             session.add(data)
+            return row_to_dict(data)
 
     @classmethod
     def put(cls, params):
@@ -53,6 +54,7 @@ class Item(Base):
             # mergeして1回commit
             session.merge(data)
             session.commit()
+            return row_to_dict(data)
 
     @classmethod
     def delete(cls, item_id):

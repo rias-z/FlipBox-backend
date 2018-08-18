@@ -52,6 +52,7 @@ class Follow(Base):
                 **params
             )
             session.add(data)
+            return row_to_dict(data)
 
     @classmethod
     def put(cls, params):
@@ -63,6 +64,7 @@ class Follow(Base):
             # mergeして1回commit
             session.merge(data)
             session.commit()
+            return row_to_dict(data)
 
     @classmethod
     def delete(cls, follow_id):
