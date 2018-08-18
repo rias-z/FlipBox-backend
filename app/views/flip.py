@@ -42,25 +42,38 @@ def post(token_data):
         params = request.json
 
         user_id = token_data.get('user_id')
+        flip_id = str(datetime.now().timestamp()).replace('.', '')
         p_flip = params.get('flip')
         p_tags = p_flip.pop('tags')
         p_items = params.get('items')
         items_cnt = len(p_items)
+        p_flip_items = []
+        p_flip_tags = []
 
-        for item in p_items:
-            item['item_id'] = str(datetime.now().timestamp()).replace('.', '')
-            Item.post(item)
-        for tag in p_tags:
-            p_tag = {'name': tag, 'tag_cnt': 1}
-            Tag.post(p_tag)
+        for p_item in p_items:
+            p_item['item_id'] = str(datetime.now().timestamp()).replace('.', '')
+            item = Item.post(p_item)
+            p_flip_item = {'flip_id': flip_id, 'item_id': item.get('item_id')}
+            p_flip_items.append(p_flip_item)
+        for tag_name in p_tags:
+            p_tag = {'name': tag_name, 'tag_cnt': 1}
+            tag = Tag.post(p_tag)
+            p_flip_tag = {'flip_id': flip_id, 'tag_id': tag.get('tag_id')}
+            p_flip_tags.append(p_flip_tag)
 
-        p_flip['flip_id'] = str(datetime.now().timestamp()).replace('.', '')
+        p_flip['flip_id'] = flip_id
         p_flip['bookmark_cnt'] = 0
         p_flip['user_id'] = user_id
         p_flip['item_cnt'] = items_cnt
         p_flip['good_cnt'] = 0
         p_flip['create_at'] = datetime.now(JST)
         flip = Flip.post(p_flip)
+
+        for p_fi in p_flip_items:
+            FlipItem.post(p_fi)
+
+        for p_ft in p_flip_tags:
+            FlipTag.post(p_ft)
 
         result = {'flip_id': flip.get('flip_id')}
         return jsonify(result)
@@ -72,22 +85,30 @@ def post(token_data):
 @check_webtoken(extra_token=True)
 def put(token_data):
     try:
-        print(token_data)
-        flip = Flip.put(request.data.flip)
-        for i in request.data.items:
-            item = Item.put(i)
-            params = {'flip_id': flip.id, 'item_id': item.id}
-            FlipItem.put(params)
+        params = request.json
+        user_id = token_data.get('user_id')
+        if user_id is not params.get('user_id'):
+            make_response('不正なユーザ', 400)
 
-        for i in request.data.tags:
-            tag = Tag.put(i)
-            params = {'flip_id': flip.id, 'tag_id': tag.id}
-            FlipTag.put(params)
+        flip_id = params.get('flip_id')
+        p_flip = params.get('flip')
+        p_tags = p_flip.pop('tags')
+        p_items = params.get('items')
+        items_cnt = len(p_items)
 
-        items = FlipItem.get_by_flip_id(flip.id)
-        tags = FlipTag.get_by_flip_id(flip.id)
+        for item in p_items:
+            item['item_id'] = str(datetime.now().timestamp()).replace('.', '')
+            Item.post(item)
 
-        result = {'flip': flip, 'items': items, 'tags': tags}
+        p_flip['flip_id'] = str(datetime.now().timestamp()).replace('.', '')
+        p_flip['bookmark_cnt'] = 0
+        p_flip['user_id'] = user_id
+        p_flip['item_cnt'] = items_cnt
+        p_flip['good_cnt'] = 0
+        p_flip['create_at'] = datetime.now(JST)
+        flip = Flip.post(p_flip)
+
+        result = {'flip_id': flip.get('flip_id')}
         return jsonify(result)
     except Exception as e:
         return make_response('', 500)
