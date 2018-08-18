@@ -136,14 +136,6 @@ def register():
             }
             return make_response(jsonify(result), 400)
 
-        # nick_nameが既に本登録されているか
-        if User.is_exist_by_nick_name(nick_name):
-            # ユーザが登録されている場合，400を返す
-            result = {
-                'error_message': 'このニックネームは既に使われています'
-            }
-            return make_response(jsonify(result), 400)
-
         # 仮登録作成時間と現在時間の差分を取得
         delta = datetime.now(JST) - prov_user['create_at']
 

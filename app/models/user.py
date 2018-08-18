@@ -66,3 +66,22 @@ class User(Base):
             )
             session.delete(rows)
 
+    @classmethod
+    def is_exist_by_email(cls, email):
+        '''同じメールのユーザが存在するかどうかをboolで返却
+        Args:
+            email:  学番メール
+        Returns:
+            bool:
+        '''
+        with session_scope() as session:
+            count = session.query(
+                cls
+            ).filter(
+                cls.email == email
+            ).count()
+
+            if count > 0:
+                return True
+            else:
+                return False
