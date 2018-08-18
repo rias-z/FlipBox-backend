@@ -54,6 +54,7 @@ class Bookmark(Base):
                 **params
             )
             session.add(data)
+            session.commit()
             return row_to_dict(data)
 
     @classmethod
