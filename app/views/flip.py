@@ -90,17 +90,17 @@ def put(token_data):
         if user_id is not params.get('user_id'):
             make_response('不正なユーザ', 400)
 
-        flip_id = params.get('flip_id')
         p_flip = params.get('flip')
-        p_tags = p_flip.pop('tags')
+        flip_id = p_flip.get('flip_id')
         p_items = params.get('items')
         items_cnt = len(p_items)
 
-        for item in p_items:
-            item['item_id'] = str(datetime.now().timestamp()).replace('.', '')
-            Item.post(item)
+        items = FlipItem.get_by_flip_id(flip_id)
 
-        p_flip['flip_id'] = str(datetime.now().timestamp()).replace('.', '')
+        for item in items:
+            Item.delete(item.get('item_id'))
+
+        p_flip['flip_id'] = flip_id
         p_flip['bookmark_cnt'] = 0
         p_flip['user_id'] = user_id
         p_flip['item_cnt'] = items_cnt
