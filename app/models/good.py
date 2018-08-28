@@ -47,6 +47,20 @@ class Good(Base):
             return row_to_dict(rows)
 
     @classmethod
+    def get_flips_by_user_id(cls, user_id):
+        with session_scope() as session:
+            rows = session.query(Flip).join(cls).filter(
+                cls.user_id == user_id
+            )
+
+            if not rows:
+                return None
+
+            result = [row_to_dict(row) for row in rows]
+
+            return result
+
+    @classmethod
     def post(cls, params):
         with session_scope() as session:
             data = cls(
