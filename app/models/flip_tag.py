@@ -61,6 +61,20 @@ class FlipTag(Base):
             return result
 
     @classmethod
+    def get_by_flips_by_tag_id(cls, tag_id):
+        with session_scope() as session:
+            rows = session.query(Flip).join(cls).filter(
+                cls.tag_id == tag_id
+            )
+
+            if not rows:
+                return None
+
+            result = [row_to_dict(row) for row in rows]
+
+            return result
+
+    @classmethod
     def post(cls, params):
         with session_scope() as session:
             data = cls(

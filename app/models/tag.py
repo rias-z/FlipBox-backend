@@ -35,6 +35,19 @@ class Tag(Base):
             return row_to_dict(rows)
 
     @classmethod
+    def get_by_tag_name(cls, tag_name):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.name == tag_name
+            ).first()
+
+            if not rows:
+                return None
+
+            return row_to_dict(rows)
+
+
+    @classmethod
     def post(cls, params):
         with session_scope() as session:
             tag = cls.is_exist_by_name(params.get('name'))
