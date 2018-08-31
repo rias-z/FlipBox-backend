@@ -45,6 +45,19 @@ class Flip(Base):
             return row_to_dict(rows)
 
     @classmethod
+    def get_by_query(cls, query):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.title == query
+            )
+
+            if not rows:
+                return None
+
+            return [row_to_dict(row) for row in rows]
+
+
+    @classmethod
     def post(cls, params):
         with session_scope() as session:
             data = cls(

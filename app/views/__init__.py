@@ -15,6 +15,7 @@ from . import (
     user,
     user_notify,
     top,
+    search,
 )
 
 
@@ -35,6 +36,7 @@ blueprints = [
     user.app,
     user_notify.app,
     top.app,
+    search.app,
 ]
 
 
