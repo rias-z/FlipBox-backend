@@ -67,21 +67,33 @@ def get_tags(tag_name):
             '''
                 tags=<tags>のqueryがある時の挙動
             '''
-            # tags = tags_query
-            # flips = FlipTag.get_by_flips_by_tag_id(tag.get('tag_id'))
+            tag_list = []
+            for tag_query in tags_query:
+                tag = Tag.get_by_tag_name(tag_query)
+                tag_list.append(tag)
+
+            flips_list = []
+            for tag2 in tag_list:
+                flips = FlipTag.get_by_flips_by_tag_id(tag2.get('tag_id'))
+                flips_list.append(flips)
+
+            if len(flips_list) is 0:
+                return jsonify([])
+
+            flips_list2 = sorted(set(flips_list), key=flips_list.index)
             result = []
-            # for flip in flips:
-            #     tags = FlipTag.get_by_flip_id(flip.get('flip_id'))
-            #     tags_list = [tag.get('name') for tag in tags]
-            #     tags_dict = {'tags': tags_list}
-            #     user = User.get(flip.get('user_id'))
-            #     author_dict = {
-            #         'user_id': user.get('user_id'),
-            #         'username': user.get('username')
-            #     }
-            #     flip.update(tags_dict)
-            #     flip.update(author_dict)
-            #     result.append(flip)
+            for f in flips_list2:
+                tags = FlipTag.get_by_flip_id(f.get('flip_id'))
+                tags_list = [tag.get('name') for tag in tags]
+                tags_dict = {'tags': tags_list}
+                user = User.get(f.get('user_id'))
+                author_dict = {
+                    'user_id': user.get('user_id'),
+                    'username': user.get('username')
+                }
+                f.update(tags_dict)
+                f.update(author_dict)
+                result.append(f)
             return jsonify(result)
     except Exception as e:
         return make_response('', 500)

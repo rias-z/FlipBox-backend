@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, DateTime, ForeignKey, desc
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.user import User
@@ -44,6 +44,26 @@ class Follow(Base):
                 return None
 
             return row_to_dict(rows)
+
+    @classmethod
+    def get_to_follow_users(cls, user_id):
+        # してる方
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.user_id == user_id
+            ).order_by(desc(cls.create_at))
+
+            return [row_to_dict(row) for row in rows]
+
+    @classmethod
+    def get_from_follow_users(cls, follow_user_id):
+        # されてる方
+        with session_scope() as session:
+            rows = session.query(User).join(cls).filter(
+                User.user_id == follow_user_id
+            ).order_by(desc(cls.create_at))
+
+            return [row_to_dict(row) for row in rows]
 
     @classmethod
     def post(cls, params):

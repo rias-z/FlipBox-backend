@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, desc
 
 from app.models import Base, row_to_dict, session_scope
 from app.models.user import User
@@ -45,10 +45,29 @@ class Flip(Base):
             return row_to_dict(rows)
 
     @classmethod
+    def get_order_by(cls):
+        with session_scope() as session:
+            rows = session.query(cls).order_by(desc(cls.create_at))
+
+            return [row_to_dict(row) for row in rows]
+
+    @classmethod
     def get_by_query(cls, query):
         with session_scope() as session:
             rows = session.query(cls).filter(
                 cls.title == query
+            )
+
+            if not rows:
+                return None
+
+            return [row_to_dict(row) for row in rows]
+
+    @classmethod
+    def get_by_user_id(cls, user_id):
+        with session_scope() as session:
+            rows = session.query(cls).filter(
+                cls.user_id == user_id
             )
 
             if not rows:
